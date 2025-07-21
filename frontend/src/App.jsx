@@ -12,17 +12,23 @@ function App() {
  
   const [ code, setCode ] = useState(` function sum() {
   return 1 + 1
-}`)
+}
+  
+//write or paste or edit code !`)
 
   const [ review, setReview ] = useState(``)
+  const [btnclick,setbtnclick]=useState(false)
 
   useEffect(() => {
     prism.highlightAll()
   }, [])
 
   async function reviewCode() {
+    setbtnclick(true);
+    setReview("Wait a moment.....")
     const response = await axios.post('https://code-reviewer-pjwj.onrender.com/ai/get-review', { code })
     setReview(response.data)
+    setbtnclick(false)
   }
 
   return (
@@ -47,14 +53,29 @@ function App() {
           </div>
           <div
             onClick={reviewCode}
-            className="review">Review</div>
+            className="review">
+              {!btnclick?"Review":"Reviewing"}
+              
+              
+              </div>
         </div>
         <div className="right">
-          <Markdown
+         {!review
+         ?
+         <div>
+          Your Review will Appear Here ! 
+         </div>
+        
+
+         
+         :<Markdown
 
             rehypePlugins={[ rehypeHighlight ]}
 
           >{review}</Markdown>
+
+         }
+          
         </div>
       </main>
     </>
