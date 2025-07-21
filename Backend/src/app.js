@@ -6,7 +6,7 @@ const app = express()
 
 app.use(cors(
     {
-        origin:"https://code-reviewer-jade-gamma.vercel.app/",
+        origin:["https://code-reviewer-aditya-rajs-projects-d6fe77d3.vercel.app","https://code-reviewer-jade-gamma.vercel.app","http://localhost:3000"],
         credentials:true,
     }
 ))
